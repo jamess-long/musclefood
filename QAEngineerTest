@@ -1,4 +1,4 @@
-Scenario 1 (Multi Currency Support) Credit Validation
+//Scenario 1 (Multi Currency Support) Credit Validation
 
 Feature: Customer uses only British coins
 Given a customer has British coins only
@@ -38,25 +38,24 @@ And the vending machine is not in order
 When a customer inserts the first coin
 Then a display message is shown of "Machine out of order"
 
-
-Scenario 2 (Dispensing Change)
+//Scenario 2 (Dispensing Change)
 
 Feature: Change is available after purchase 
 Given the vending machine is in order
 And the credit validation has passed 
-And the machine has the minimum amount of change required
+And the machine has the minimum amount of change required in either currency
 When customer has finished making purchases
 And the remaining amount is greater than the cost of the purchases 
 Then customer is notified 
 And the remaining credit is displayed on screen of "£X.XXp"
 And the customer is able to request change
-And if the customer requests change then it is given in the smallest number of coins
+And if the customer requests change then it is given in the smallest number of coins in the same currency
 And the inventory is updated 
 
 Feature: Change is not available after purchase
 Given the vending machine is in order
 And the credit validation has passed 
-And the machine has the minimum amount of change required
+And the machine has the minimum amount of change required in either currency
 When customer has finished making purchases
 And the cost of the purchases equaled the amount of credit 
 Then customer is notified 
@@ -66,12 +65,11 @@ And the inventory is updated
 
 Feature: If change is not available 
 Given the vending machine is in order
-And the machine does not have the minimum amount of change required
+And the machine does not have the minimum amount of change required in either currency
 When a customer begins the credit validation 
 Then the customer is notified via the display screen "Unable to offer change, please enter correct amount"
 
-
-Scenario 3 (Multiple vends)
+//Scenario 3 (Multiple vends)
 
 Feature: Customer makes purchase of one product that is LESS than credit amount
 Given the machine is in order
@@ -109,7 +107,7 @@ When a customer makes more than one purchase of products is equal to the credit 
 And the inventory is updated 
 Then the remaining credit is displayed on screen of "£0.00p"
 
-Scenario 4 (Contactless Payment)
+//Scenario 4 (Contactless Payment)
 
 Feature: Debit card type is accepted
 Given the machine is in order
@@ -164,8 +162,7 @@ When a customer presents their Apple pay device to contactless reader
 Then a message on the display of "We currently cannot take card payments, cash only" is shown 
 But the customer can still insert coins
 
-
-Scenario 5 (Monitoring and alerting)
+//Scenario 5 (Monitoring and alerting)
 
 Feature: Machine is low on stock with one or more items
 Given the machine has an active internet connection 
@@ -243,39 +240,38 @@ And the machine will go to out of order if the fault is severe
 
 
 
+// Questions to product owner
 
+// Is there a minimum and maximum amount spend?
+// How much will the products cost? 
+// Will the products all cost the same amount or be different amounts? 
+// What will the explanation message be on screen?
+// How instantaneously will the message appear on the screen?
+// What about different languages for the messages? We are allowing payments with Euros so many languages could be used
+// Customer may need to be able to select a language first?
+// How will this machine be adjusted with the introduction of new and discontinuation of old coins?
+// As this is connected to the internet, will there be any data in or out for the inventory? Such as low stock or out-of-order status? 
+// What error messages could there be should there be a process failure, to the customer?
+// Will the machine take notes?
 
-Questions to product owner
+// Is there a limit to how many products a customer can buy at one time?
+// How might the customer perform requests? Via button? Via touch screen? via voice?
+// How is the customer notified on screen? By voice?
+// What about customer accessibility? Partially sighted? Audio assistance? 
+// Will the vending machine be accessible to the disabled?
 
-Is there a minimum and maximum amount spend?
-How much will the products cost? 
-Will the products all cost the same amount or be different amounts? 
-What will the explanation message be on screen?
-How instantaneously will the message appear on the screen?
-How will this machine be adjusted with the introduction of new and discontinuation of old coins?
-As this is connected to the internet, will there be any data in or out for the inventory? Such as low stock or out-of-order status? 
-What error messages could there be should there be a process failure, to the customer?
-Will the machine take notes?
+// Will the machine take other formats of payment such as android pay in the future? 
+// Is there a contactless limit spend per transaction? 
+// Is there a card limit to the amount of times used in a certain time frame? 
+// Error message for card declined?
+// What types of cards are accepted?
 
-Is there a limit to how many products a customer can buy at one time?
-How might the customer perform requests? Via button? Via touch screen? via voice?
-How is the customer notified on screen? By voice?
-What about customer accessibility? Partially sighted? Audio assistance? 
-Will the vending machine be accessible to the disabled?
-What about different languages for the messages?
-
-Will the machine take other formats of payment such as android pay in the future? 
-Is there a contactless limit spend per transaction? 
-Is there a card limit to the amount of times used in a certain time frame? 
-Error message for card declined?
-What cards are accepted?
-
-Where is the data stored and what form of database? 
-Will there be a local copy of stock and error messages?
-Will there be a way of transferring data locally? 
-What are the list of faults? Are there any other details of the faults
-Will send only one email to one recipient? 
-Will the customer be alerted to any of the low stock, temperature or other faults? 
-What is the low stock threshold? 
-What about a notification to the operator should the internet connection drop? 
-What is the temperature predetermined range?
+// Where is the data stored and what form of database? 
+// Will there be a local copy of stock and error messages?
+// Will there be a way of transferring data locally? 
+// What are the list of faults? Are there any other details of the faults
+// Will send only one email to one recipient? 
+// Will the customer be alerted to any of the low stock, temperature or other faults? 
+// What is the low stock threshold? 
+// What about a notification to the operator should the internet connection drop? Maybe a frequent connection test?
+// What is the temperature predetermined range?
